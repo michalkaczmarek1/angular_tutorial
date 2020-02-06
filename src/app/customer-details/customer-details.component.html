@@ -1,0 +1,31 @@
+<div class="panel-body">
+    <div class="row">
+      <div class="col-sm-8">
+        
+        <h2><button type="button" (click)="left()">&lt;</button>{{ customer.name.toUpperCase() }}<button type="button" (click)="right()">&gt;</button></h2>
+
+        <p>Opis: {{ customer.desc }}</p>
+        <p appHighlight>Wiek: {{ customer.age }}</p>
+        <p>Adres: {{ customer.address.street }}, {{ customer.address.houseNumber }}, {{ customer.address.city }}</p>  
+
+        <ul>
+          <li *ngFor="let category of customer.categories; let oddCategory = odd" [class.oddCategory]="oddCategory">{{ category }} {{ oddCategory }}</li>
+        </ul>
+
+        <button type="button" class="btn btn-primary" (click)="this.isActive = !this.isActive">Przełącz podkreślenie</button>
+        <button type="button" class="btn btn-primary" (click)="changeColor()">Przełącz kolor</button>
+      </div>
+      <div class="col-sm-4">
+        <ng-container *ngIf="showPhoto; then photo else noPhoto"></ng-container>
+        <ng-template #photo>
+          <img [src]="customer.photoUrl" /><br>
+        </ng-template>
+        <ng-template #noPhoto>
+          <p>Zdjecie ukryte</p>
+        </ng-template>
+        <div class="checkbox">
+          <label><input type="checkbox" [(ngModel)]="showPhoto">Pokaz zdjecie</label>
+        </div>
+      </div>
+    </div>
+</div>

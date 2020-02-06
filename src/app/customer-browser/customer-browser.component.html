@@ -1,0 +1,8 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+      <select [(ngModel)]="customer">
+      <option *ngFor="let c of customers" [ngValue]="c">{{ c.name }}</option>
+      </select>
+    </div>
+</div>
+<app-customer-details [customer]="customer" (shift)="onShift($event)"></app-customer-details>
