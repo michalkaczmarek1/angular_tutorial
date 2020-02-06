@@ -1,32 +1,85 @@
+
+import { Customer, CustomerType } from './model';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1 [style.color] = "nameColor" [class.isActive] = "isActive">{{ customer.name.toUpperCase() }}
+        <ng-container [ngSwitch]="customer.type">
+          <ng-container *ngSwitchCase="CustomerType.Standard">*</ng-container>
+          <ng-container *ngSwitchCase="CustomerType.Premium">**</ng-container>
+          <ng-container *ngSwitchCase="CustomerType.VIP">***</ng-container>
+          <ng-container *ngSwitchDefault>nieznany typ</ng-container>
+        </ng-container>
+        </h1>
+      </div>
     </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-8">
+          <p>Opis: {{ customer.desc }}</p>
+          <p>Wiek: {{ customer.age }}</p>
+          <p>Adres: {{ customer.address.street }}, {{ customer.address.houseNumber }}, {{ customer.address.city }}</p>  
+          <button type="button" class="btn btn-primary" (click)="this.isActive = !this.isActive">Przełącz podkreślenie</button>
+          <button type="button" class="btn btn-primary" (click)="changeColor()">Przełącz kolor</button>
+        </div>
+        <div class="col-sm-4">
+          <ng-container *ngIf="showPhoto; then photo else noPhoto"></ng-container>
+          <ng-template #photo>
+            <img [src]="customer.photoUrl" /><br>
+          </ng-template>
+          <ng-template #noPhoto>
+            <p>Zdjecie ukryte</p>
+          </ng-template>
+          <div class="checkbox">
+            <label><input type="checkbox" [(ngModel)]="showPhoto">Pokaz zdjecie</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   `,
-  styles: []
+  styles: [`
+    .isActive {
+      text-decoration: underline;
+    }
+  `]
 })
 export class AppComponent {
-  title = 'customer-manager';
+  // name: string = 'Jan Kowalski';
+  nameColor: string = 'green';
+  // photoUrl: string = 'assets/images/customer.png';
+  isActive: boolean = false;
+  customer: Customer = {
+    name: "Jan Kowalski",
+    photoUrl: "assets/images/customer.png",
+    desc: "Opis testowy",
+    age: 31,
+    address: {
+      street: "Zielona",
+      houseNumber: 32,
+      city: "Poznań"
+    },
+    type: CustomerType.VIP
+  };
+  showPhoto: boolean = false;
+  CustomerType = CustomerType;
+
+
+
+
+  constructor(){
+    // setTimeout(() => {
+    //   this.customer.name = 'Wojciech';
+    // }, 4000)
+  }
+
+  changeColor(){
+    this.nameColor = this.nameColor === "green" ? "red" : "green";
+  }
+
 }
