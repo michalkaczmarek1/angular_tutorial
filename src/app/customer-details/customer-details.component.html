@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-sm-8">
         
-        <h2><button type="button" (click)="left()">&lt;</button>{{ customer.name.toUpperCase() }}<button type="button" (click)="right()">&gt;</button></h2>
+        <h2 [style.color]="nameColor"><button type="button" (click)="left()">&lt;</button>{{ customer.name.toUpperCase() }}<button type="button" (click)="right()">&gt;</button></h2>
 
         <p>Opis: {{ customer.desc }}</p>
         <p appHighlight>Wiek: {{ customer.age }}</p>
@@ -29,3 +29,4 @@
       </div>
     </div>
 </div>
+<p>{{ counter }}</p>

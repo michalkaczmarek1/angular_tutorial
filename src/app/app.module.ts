@@ -6,6 +6,18 @@ import { AppComponent } from './app.component';
 import { HighlightDirective } from './highlight.directive';
 import { CustomerBrowserComponent } from './customer-browser/customer-browser.component';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { CustomerService } from './customer.service';
+import { CounterService } from './counter.service';
+import { Config, CONFIG } from './model';
+import { ToastrModule } from 'ngx-toastr';
+import { MessageService } from './message.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+const config: Config = {
+  customerLimit: 2,
+  apiUrl: 'http://localhost:13378'
+}
 
 @NgModule({
   declarations: [
@@ -17,9 +29,17 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    CustomerService,
+    CounterService,
+    {provide: CONFIG, useValue: config},
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

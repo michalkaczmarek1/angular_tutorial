@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerType, Customer } from '../model';
+import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
+import { CustomerService } from '../customer.service';
+import { CounterService } from '../counter.service';
 
 @Component({
   selector: 'app-customer-browser',
@@ -8,65 +11,21 @@ import { CustomerType, Customer } from '../model';
 })
 export class CustomerBrowserComponent implements OnInit {
 
-  customers: Customer[] = [
-    {
-      name: "Jan Kowalski",
-      photoUrl: "assets/images/customer.png",
-      age: 34,
-      desc: "Bardzo wazny klient",
-      address: {
-        street: "Zielona",
-        houseNumber: 5,
-        city: "Warszawa"
-      },
-      type: CustomerType.Premium,
-      categories: [
-        "zagraniczny",
-        "mikroprzedsiebiorstwo",
-        "duzy obrot"
-      ]
-    },
-    {
-      name: "Robert Kowalczyk",
-      photoUrl: "assets/images/customer.png",
-      age: 34,
-      desc: "Bardzo wazny klient",
-      address: {
-        street: "Zielona",
-        houseNumber: 5,
-        city: "Poznan"
-      },
-      type: CustomerType.Premium,
-      categories: [
-        "zagraniczny",
-        "mikroprzedsiebiorstwo",
-        "duzy obrot"
-      ]
-    },
-    {
-      name: "Maria Nowak",
-      photoUrl: "assets/images/customer.png",
-      age: 34,
-      desc: "Bardzo wazny klient",
-      address: {
-        street: "Zielona",
-        houseNumber: 5,
-        city: "Gdansk"
-      },
-      type: CustomerType.Premium,
-      categories: [
-        "zagraniczny",
-        "mikroprzedsiebiorstwo",
-        "duzy obrot"
-      ]
-    }
-  ]
+  @ViewChild('details', {static: false}) detaisComponent: CustomerDetailsComponent
 
-  customer: Customer = this.customers[0];
+  customers: Customer[];
+
+  customer: Customer;
   
-  constructor() { }
+  constructor(private customerSevice: CustomerService, private counterService: CounterService) { }
 
   ngOnInit() {
+    this.customerSevice.getCustomers().subscribe(response => {
+      this.customers = response;
+      this.customer = this.customers[0];
+    });
+    
+    this.counterService.increase();
   }
 
   onShift(direction: string){
@@ -76,6 +35,10 @@ export class CustomerBrowserComponent implements OnInit {
     } else if (direction === 'right' && idx < this.customers.length -1){
       this.customer = this.customers[idx+1];
     }
+  }
+
+  changeColor(){
+    this.detaisComponent.changeColor();
   }
 
 }
