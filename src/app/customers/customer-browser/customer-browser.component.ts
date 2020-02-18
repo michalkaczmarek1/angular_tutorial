@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerType, Customer } from '../model';
 import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
 import { CustomerService } from '../customer.service';
-import { CounterService } from '../counter.service';
+import { CounterService } from '../../core/counter.service';
+import { MessageService } from '../../core/message.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-browser',
@@ -14,18 +16,35 @@ export class CustomerBrowserComponent implements OnInit {
   @ViewChild('details', {static: false}) detaisComponent: CustomerDetailsComponent
 
   customers: Customer[];
+  // customers$: Observable<Customer[]>
 
   customer: Customer;
   
-  constructor(private customerSevice: CustomerService, private counterService: CounterService) { }
+  constructor(
+    private customerSevice: CustomerService, 
+    private counterService: CounterService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit() {
-    this.customerSevice.getCustomers().subscribe(response => {
-      this.customers = response;
-      this.customer = this.customers[0];
-    });
+    
+    this.refresh();
     
     this.counterService.increase();
+
+  }
+
+  deleteCustomer(){
+    this.customerSevice.deleteCustomer(this.customer).subscribe(
+      () => {
+      this.messageService.success("Udalo sie usunac klienta");
+      this.refresh();
+      },
+      error => {
+        console.log(error);
+        this.messageService.error("Blad w polaczeniu z serwerem");
+      }
+    );
   }
 
   onShift(direction: string){
@@ -41,4 +60,14 @@ export class CustomerBrowserComponent implements OnInit {
     this.detaisComponent.changeColor();
   }
 
+  private refresh() {
+    
+    // this.customer = null;
+    // this.customers$ = this.customerSevice.getCustomers();
+
+    this.customerSevice.getCustomers().subscribe(response => {
+      this.customers = response;
+      this.customer = this.customers[0];
+    });
+  }
 }

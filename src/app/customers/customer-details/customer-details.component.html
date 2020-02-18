@@ -6,10 +6,10 @@
 
         <p>Opis: {{ customer.desc }}</p>
         <p appHighlight>Wiek: {{ customer.age }}</p>
-        <p>Adres: {{ customer.address.street }}, {{ customer.address.houseNumber }}, {{ customer.address.city }}</p>  
+        <p>Adres: {{ customer.address.street | uppercase }}, {{ customer.address.houseNumber }}, {{ customer.address.city }}</p>  
 
         <ul>
-          <li *ngFor="let category of customer.categories; let oddCategory = odd" [class.oddCategory]="oddCategory">{{ category }} {{ oddCategory }}</li>
+          <li *ngFor="let category of customer.categories; let oddCategory = odd" [class.oddCategory]="oddCategory">{{ category | capitalize }}</li>
         </ul>
 
         <button type="button" class="btn btn-primary" (click)="this.isActive = !this.isActive">Przełącz podkreślenie</button>
@@ -30,3 +30,4 @@
     </div>
 </div>
 <p>{{ counter }}</p>
+<pre>{{ customer | json }}</pre>

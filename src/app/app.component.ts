@@ -1,5 +1,4 @@
 
-import { Customer, CustomerType } from './model';
 import { Component } from '@angular/core';
 
 @Component({
@@ -16,6 +15,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
  
+  currentDate: number = Date.now();
+  
   constructor(){
   }
 

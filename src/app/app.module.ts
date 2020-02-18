@@ -1,44 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HighlightDirective } from './highlight.directive';
-import { CustomerBrowserComponent } from './customer-browser/customer-browser.component';
-import { CustomerDetailsComponent } from './customer-details/customer-details.component';
-import { CustomerService } from './customer.service';
-import { CounterService } from './counter.service';
-import { Config, CONFIG } from './model';
 import { ToastrModule } from 'ngx-toastr';
-import { MessageService } from './message.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ContractsModule } from './contracts/contracts.module';
+import { CustomersModule } from './customers/customers.module';
+import { CoreModule } from './core/core.module';
+import { RouterModule, Routes } from '@angular/router';
+import { CustomerBrowserComponent } from './customers/customer-browser/customer-browser.component';
+import { CustomerAddComponent } from './customers/customer-add/customer-add.component';
+import { ContractListComponent } from './contracts/contract-list/contract-list.component';
+import { NotFoundComponent } from './core/not-found/not-found.component';
+// import { ErrorHandlingInterceptor } from './error-handling-interceptor';
 
-const config: Config = {
-  customerLimit: 2,
-  apiUrl: 'http://localhost:13378'
-}
+const routes: Routes = [
+  { path: '', redirectTo: 'customers', pathMatch: 'full' },
+  { path: "**", component: NotFoundComponent }
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    HighlightDirective,
-    CustomerBrowserComponent,
-    CustomerDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    HttpClientModule
-  ],
-  providers: [
-    CustomerService,
-    CounterService,
-    {provide: CONFIG, useValue: config},
-    MessageService
+    HttpClientModule,
+    ContractsModule,
+    CustomersModule,
+    CoreModule,
+    RouterModule.forRoot(routes)
   ],
   bootstrap: [AppComponent]
 })

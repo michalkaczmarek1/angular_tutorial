@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Customer, CustomerType } from '../model';
-import { CounterService } from '../counter.service';
-import { MessageService } from '../message.service';
+import { CounterService } from '../../core/counter.service';
+import { MessageService } from '../../core/message.service';
 
 
 @Component({
