@@ -18,7 +18,7 @@
             <td appHighlight>{{ contract.customerName }}</td>
             <td>{{ contract.date | date: 'dd-MM-yyyy' }}</td>
             <td>{{ contract.value }} PLN</td>
-            <td><a >Szczegóły</a></td>
+            <td><a routerLink="{{ contract.id }}">Szczegóły</a></td>
           </tr>
         </tbody>
       </table>

@@ -6,6 +6,8 @@ import { CONFIG, Config } from '../model';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
 
 
 const config: Config = {
@@ -24,6 +26,8 @@ const config: Config = {
     CounterService,
     MessageService,
     {provide: CONFIG, useValue: config},
+    AuthGuard,
+    AuthService
   ],
   exports: [
     NavbarComponent

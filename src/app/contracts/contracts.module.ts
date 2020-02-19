@@ -3,13 +3,15 @@ import { ContractListComponent } from './contract-list/contract-list.component';
 import { ContractService } from './contract.service';
 import { SharedModule } from '../shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
+import { ContractDetailsComponent } from './contract-details/contract-details.component';
 
 const routes: Routes = [
+  { path: 'contracts/:id', component: ContractDetailsComponent },
   { path: 'contracts', component: ContractListComponent },
 ]
 
 @NgModule({
-  declarations: [ContractListComponent],
+  declarations: [ContractListComponent, ContractDetailsComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
