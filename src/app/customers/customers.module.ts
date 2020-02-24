@@ -9,7 +9,7 @@ import { AuthGuard } from '../core/auth-guard.service';
 
 const routes: Routes = [
   { path: 'customers', component: CustomerBrowserComponent },
-  { path: 'customers/add', component: CustomerAddComponent, canActivate: [ AuthGuard ] },
+  { path: 'customers/add', component: CustomerAddComponent, canActivate: [ AuthGuard ] }
 ]
 
 @NgModule({
@@ -20,12 +20,14 @@ const routes: Routes = [
   ],
   imports: [
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   exports: [
     CustomerAddComponent,
     CustomerBrowserComponent
   ],
-  providers: [CustomerService]
+  providers: [
+    CustomerService
+  ]
 })
 export class CustomersModule { }

@@ -18,12 +18,17 @@ export class ContractDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      const id = parseInt(params['id']);
-      this.contractService.getContract(id).subscribe(contract => {
-        this.contract = contract;      
-      })
-    })
+
+    this.activatedRoute.data.subscribe(data => {
+      this.contract = data.contract;
+    });
+
+    // this.activatedRoute.params.subscribe(params => {
+    //   const id = parseInt(params['id']);
+    //   this.contractService.getContract(id).subscribe(contract => {
+    //     this.contract = contract;      
+    //   })
+    // })
   }
 
 }
