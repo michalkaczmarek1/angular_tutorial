@@ -10,6 +10,9 @@
             <li class="nav-item" style="padding: 10px;">
                 <a routerLink="contracts">Umowy</a>
             </li>
+            <li class="nav-item" style="padding: 10px;">
+                <a routerLink="eduweb/hello-world">Eduweb</a>
+            </li>
         </ul>
         <form  class="navbar-form navbar-right">
             <button class="btn btn-info" (click)="authService.login()" *ngIf="!authService.isLogged">Zaloguj</button>

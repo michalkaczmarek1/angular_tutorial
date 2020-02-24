@@ -12,6 +12,7 @@ import { CustomerBrowserComponent } from './customers/customer-browser/customer-
 import { CustomerAddComponent } from './customers/customer-add/customer-add.component';
 import { ContractListComponent } from './contracts/contract-list/contract-list.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
+import { EduwebModule } from './eduweb/eduweb.module';
 // import { ErrorHandlingInterceptor } from './error-handling-interceptor';
 
 const routes: Routes = [
@@ -32,7 +33,8 @@ const routes: Routes = [
     HttpClientModule,
     CustomersModule,
     CoreModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    EduwebModule
   ],
   bootstrap: [AppComponent]
 })
