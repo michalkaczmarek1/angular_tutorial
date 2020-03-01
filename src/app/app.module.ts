@@ -13,12 +13,14 @@ import { CustomerAddComponent } from './customers/customer-add/customer-add.comp
 import { ContractListComponent } from './contracts/contract-list/contract-list.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { EduwebModule } from './eduweb/eduweb.module';
+import { ContractsModule } from './contracts/contracts.module';
+import { EduwebMainComponent } from './eduweb/eduweb-main/eduweb-main.component';
 // import { ErrorHandlingInterceptor } from './error-handling-interceptor';
 
 const routes: Routes = [
   { path: 'contracts', loadChildren: 'src/app/contracts/contracts.module#ContractsModule' },
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
-  { path: "**", component: NotFoundComponent }
+  { path: "**", component: NotFoundComponent },
 ]
 
 @NgModule({

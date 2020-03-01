@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelloWorldComponent implements OnInit {
 
+  welcome: string = "Hello World!!!";
   name: string = "Michal Kaczmarek";
   person = {
     name: this.name,

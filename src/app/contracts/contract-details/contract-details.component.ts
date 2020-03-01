@@ -21,6 +21,7 @@ export class ContractDetailsComponent implements OnInit {
 
     this.activatedRoute.data.subscribe(data => {
       this.contract = data.contract;
+      console.log(this.contract);
     });
 
     // this.activatedRoute.params.subscribe(params => {
